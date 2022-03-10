@@ -1,0 +1,27 @@
+<h2>
+	<%= @article.title %>
+</h2>
+<p>
+	<%= @article.body %>
+</p>
+<%= link_to "Edit", edit_article_path %>
+<%= button_to "Delete", @article, method: :delete, data: {confirm: "Are you sure"} %><br>
+<div>
+	<h3>Comment</h3>
+	<% @article.comments.each do |comment| %>
+		<p>
+			<%= comment.body %>
+			<%= button_to "Delete", [comment.article, comment], method: :delete %>
+		</p>
+	<% end %>
+	<%= form_with model: [@article, @article.comments.build] do |form| %>
+	<p>
+		<%= form.label :Comments %><br>
+		<%= form.text_area :body %>
+	</p>
+	<p>
+		<%= form.submit %>
+	</p>
+</div>
+<% end %>
+<%= link_to "Home Page", articles_path %>
